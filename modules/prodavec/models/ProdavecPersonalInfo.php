@@ -55,4 +55,5 @@ class ProdavecPersonalInfo extends \yii\db\ActiveRecord
             'user_id' => 'User ID',
         ];
     }
+
 }
