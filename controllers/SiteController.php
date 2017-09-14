@@ -72,6 +72,7 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             $roles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
+
             //if login prodavec
             if(ArrayHelper::keyExists('prodavec',$roles,false)){
                 return $this->redirect('/prodavec');

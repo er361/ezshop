@@ -9,6 +9,11 @@ use yii\widgets\ActiveForm;
 ?>
 <div class="personal-info-index">
     <? \yii\widgets\Pjax::begin()?>
+
+    <? if(Yii::$app->session->hasFlash('personal_info_success')):?>
+        <div class="alert alert-success" role="alert"><?= Yii::$app->session->getFlash('personal_info_success')?></div>
+    <? endif;?>
+
         <?php $form = ActiveForm::begin([
                 'options' => [
                         'data-pjax' => 1
@@ -29,3 +34,4 @@ use yii\widgets\ActiveForm;
         <?php ActiveForm::end(); ?>
     <? \yii\widgets\Pjax::end() ?>
 </div><!-- personal-info-index -->
+
