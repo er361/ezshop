@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
+use yii\rbac\Role;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -20,19 +22,12 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'except' => ['login'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['prodavec'],
                     ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
                 ],
             ],
         ];
@@ -66,7 +61,6 @@ class SiteController extends Controller
 
     /**
      * Login action.
-     *
      * @return Response|string
      */
     public function actionLogin()
@@ -77,7 +71,14 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            $roles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
+            //if login prodavec
+            if(ArrayHelper::keyExists('prodavec',$roles,false)){
+                return $this->redirect('/prodavec');
+            }
+
+            die('vse GG');
+
         }
         return $this->render('login', [
             'model' => $model,
