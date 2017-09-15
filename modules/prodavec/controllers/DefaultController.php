@@ -23,6 +23,6 @@ class DefaultController extends Controller
     public function actionAccount()
     {
         $userProfile = ProdavecPersonalInfo::findOne(['user_id' => \Yii::$app->getUser()->id]) ;
-        return $this->renderFile('_account-block.php',['userProfile' => $userProfile]);
+        return $this->renderAjax('/layouts/_account-block.php',['userProfile' => $userProfile]);
     }
 }

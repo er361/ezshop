@@ -6,6 +6,9 @@ class MyProductsController extends \yii\web\Controller
 {
     public function actionIndex()
     {
-        return $this->renderAjax('index');
+        if(\Yii::$app->request->isPjax)
+            return $this->renderAjax('index');
+
+        return $this->render('index');
     }
 }

@@ -32,7 +32,7 @@ class PersonalInfoController extends \yii\web\Controller
                 \Yii::$app->session->setFlash('personal_info_success','Успешно сохранено');
         }
 
-        return $this->renderAjax('index',['model' => $model]);
+        return $this->render('index',['model' => $model]);
     }
 
     public function getModel()

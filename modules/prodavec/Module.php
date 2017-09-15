@@ -11,6 +11,7 @@ class Module extends \yii\base\Module
      * @inheritdoc
      */
     public $controllerNamespace = 'app\modules\prodavec\controllers';
+    public $layout = 'index';
 
     /**
      * @inheritdoc
