@@ -28,6 +28,7 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'email') ?>
             <?= $form->field($model, 'phone') ?>
             <?= $form->field($model, 'address') ?>
+            <?= $form->field($model,'photo_file')->fileInput(['accept' => 'image/*']) ?>
 
             <div class="form-group">
                 <?= Html::submitButton('Сохранить и отправить', ['class' => 'btn btn-primary']) ?>

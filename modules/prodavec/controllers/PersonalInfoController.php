@@ -3,6 +3,7 @@
 namespace app\modules\prodavec\controllers;
 
 use app\modules\prodavec\models\ProdavecPersonalInfo;
+use yii\web\UploadedFile;
 
 class PersonalInfoController extends \yii\web\Controller
 {
@@ -15,9 +16,17 @@ class PersonalInfoController extends \yii\web\Controller
 
         if (\Yii::$app->request->isPost){
             $model->load(\Yii::$app->request->post());
+
             $model->user_id = \Yii::$app->user->getId();
-            if($model->save())
+
+            $model->photo_file = UploadedFile::getInstance($model, 'photo_file');
+            if($model->upload())
+                $model->photo_path = $model->setHash($model->photo_file->baseName). '.' . $model->photo_file->extension;
+
+            if($model->save(false))
                 \Yii::$app->session->setFlash('personal_info_success','Успешно сохранено');
+
+
         }
 
         return $this->renderAjax('index',['model' => $model]);

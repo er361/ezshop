@@ -16,9 +16,11 @@ use Yii;
  * @property string $phone
  * @property string $address
  * @property integer $user_id
+ * @property string $photo_path
  */
 class ProdavecPersonalInfo extends \yii\db\ActiveRecord
 {
+    public $photo_file;
     /**
      * @inheritdoc
      */
@@ -34,7 +36,9 @@ class ProdavecPersonalInfo extends \yii\db\ActiveRecord
     {
         return [
             [['user_id'], 'integer'],
-            [['first_name', 'second_name', 'company_name', 'brands', 'email', 'phone', 'address'], 'string', 'max' => 255],
+            [['first_name','photo_path', 'second_name', 'company_name', 'brands', 'email', 'phone', 'address'], 'string', 'max' => 255],
+            ['email','email'],
+            ['photo_file','file','skipOnEmpty' => false]
         ];
     }
 
@@ -53,7 +57,23 @@ class ProdavecPersonalInfo extends \yii\db\ActiveRecord
             'phone' => 'Phone',
             'address' => 'Address',
             'user_id' => 'User ID',
+            'photo_path' => 'Photo path'
         ];
+    }
+
+    public function upload()
+    {
+        if ($this->validate()) {
+            $this->photo_file->saveAs('uploads/' . $this->setHash($this->photo_file->baseName ). '.' . $this->photo_file->extension);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setHash($strign){
+        $what = md5($strign + rand());
+        return $what;
     }
 
 }
