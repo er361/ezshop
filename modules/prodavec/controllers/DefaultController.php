@@ -2,6 +2,7 @@
 
 namespace app\modules\prodavec\controllers;
 
+use app\modules\prodavec\models\ProdavecPersonalInfo;
 use yii\web\Controller;
 
 /**
@@ -15,6 +16,13 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $userProfile = ProdavecPersonalInfo::findOne(['user_id' => \Yii::$app->getUser()->id]) ;
+        return $this->render('index',['userProfile' => $userProfile]);
+    }
+
+    public function actionAccount()
+    {
+        $userProfile = ProdavecPersonalInfo::findOne(['user_id' => \Yii::$app->getUser()->id]) ;
+        return $this->renderFile('_account-block.php',['userProfile' => $userProfile]);
     }
 }

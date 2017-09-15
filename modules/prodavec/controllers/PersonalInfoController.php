@@ -15,18 +15,21 @@ class PersonalInfoController extends \yii\web\Controller
             $model = new ProdavecPersonalInfo();
 
         if (\Yii::$app->request->isPost){
-            $model->load(\Yii::$app->request->post());
 
+            $model->load(\Yii::$app->request->post());
             $model->user_id = \Yii::$app->user->getId();
 
-            $model->photo_file = UploadedFile::getInstance($model, 'photo_file');
-            if($model->upload())
-                $model->photo_path = $model->setHash($model->photo_file->baseName). '.' . $model->photo_file->extension;
+            $uploadedFile = UploadedFile::getInstance($model, 'photo_file');
+
+            if($uploadedFile){
+                $model->photo_file = $uploadedFile;
+
+                if($model->upload())
+                    $model->photo_path = $model->photo_path . '.' . $model->photo_file->extension;
+            }
 
             if($model->save(false))
                 \Yii::$app->session->setFlash('personal_info_success','Успешно сохранено');
-
-
         }
 
         return $this->renderAjax('index',['model' => $model]);

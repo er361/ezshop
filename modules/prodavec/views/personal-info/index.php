@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -17,7 +18,8 @@ use yii\widgets\ActiveForm;
         <?php $form = ActiveForm::begin([
                 'action' => ['/prodavec/personal-info/index'],
                 'options' => [
-                        'data' => ['pjax' => true]
+                        'data' => ['pjax' => true],
+                    'id' => 'personal_info_form'
                 ]
         ]); ?>
 
@@ -31,9 +33,26 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model,'photo_file')->fileInput(['accept' => 'image/*']) ?>
 
             <div class="form-group">
-                <?= Html::submitButton('Сохранить и отправить', ['class' => 'btn btn-primary']) ?>
+                <?= Html::submitButton('Сохранить и отправить', [
+                        'class' => 'btn btn-primary',
+                    'onclick' => 'pjaxReload()'
+                ]) ?>
             </div>
         <?php ActiveForm::end(); ?>
     <? \yii\widgets\Pjax::end() ?>
 </div><!-- personal-info-index -->
+
+<script>
+    function pjaxReload(){
+
+        setTimeout(body, 500);
+
+        function body() {
+            $.get('<?= Url::to("/prodavec/default/account")?>', function (html) {
+                $('#account').html(html);
+            })
+        }
+
+    }
+</script>
 
