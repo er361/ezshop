@@ -8,15 +8,16 @@ use yii\widgets\ActiveForm;
 /* @var $form ActiveForm */
 ?>
 <div class="personal-info-index">
-    <? \yii\widgets\Pjax::begin()?>
 
-    <? if(Yii::$app->session->hasFlash('personal_info_success')):?>
-        <div class="alert alert-success" role="alert"><?= Yii::$app->session->getFlash('personal_info_success')?></div>
-    <? endif;?>
+    <? \yii\widgets\Pjax::begin()?>
+        <? if(Yii::$app->session->hasFlash('personal_info_success')):?>
+            <div class="alert alert-success" role="alert"><?= Yii::$app->session->getFlash('personal_info_success')?></div>
+        <? endif;?>
 
         <?php $form = ActiveForm::begin([
+                'action' => ['/prodavec/personal-info/index'],
                 'options' => [
-                        'data-pjax' => 1
+                        'data' => ['pjax' => true]
                 ]
         ]); ?>
 

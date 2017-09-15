@@ -13,8 +13,25 @@
                     <li><a href="<?= \yii\helpers\Url::to(['my-products/index'])?>">Мои товары</a></li>
                 </ul>
             </div>
-            <div id="pjax-container" class="col-md-6">
 
+            <div class="col-md-3">
+                <img class="img-responsive"
+                     src="http://fakeimg.pl/350x200"
+                     alt="">
+                <p>
+                    <? $userProfile =
+                        \app\modules\prodavec\models\ProdavecPersonalInfo::
+                        findOne(['user_id' => Yii::$app->getUser()->id]) ; ?>
+                    <?= $userProfile->first_name . ' ' . $userProfile->second_name;?>
+                    <br>
+                    ID: <?= $userProfile->id; ?>
+                </p>
+
+            </div>
+
+
+            <div id="pjax-container" class="col-md-6">
+                    <?= $this->render('/personal-info/index',['model' => $userProfile]); ?>
             </div>
         </div>
     </div>
