@@ -31,6 +31,8 @@ class PersonalInfoController extends \yii\web\Controller
             if($model->save(false))
                 \Yii::$app->session->setFlash('personal_info_success','Успешно сохранено');
         }
+        if(\Yii::$app->request->isPjax)
+            return $this->renderAjax('index',['model' => $model]);
 
         return $this->render('index',['model' => $model]);
     }

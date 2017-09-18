@@ -2,8 +2,6 @@
 /* @var $this yii\web\View
  */
 
-use yii\helpers\Url;
-use yii\widgets\Pjax;
 
 \app\assets\BowerAsset::register($this);
 ?>

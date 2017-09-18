@@ -7,11 +7,11 @@ namespace app\modules\prodavec;
  */
 class Module extends \yii\base\Module
 {
+    public $layout = 'index.php';
     /**
      * @inheritdoc
      */
     public $controllerNamespace = 'app\modules\prodavec\controllers';
-    public $layout = 'index';
 
     /**
      * @inheritdoc

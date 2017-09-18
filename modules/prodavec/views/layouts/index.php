@@ -2,23 +2,17 @@
 /**
  * Created by PhpStorm.
  * User: Maint
- * Date: 15.09.2017
- * Time: 18:11
+ * Date: 18.09.2017
+ * Time: 10:13
  */
 
-
-/* @var $this \yii\web\View */
-/* @var $content string */
-
+use app\assets\AppAsset;
 use app\modules\prodavec\models\ProdavecPersonalInfo;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
 use yii\helpers\Url;
-use yii\widgets\Breadcrumbs;
-use app\assets\AppAsset;
 
 AppAsset::register($this);
+
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
@@ -33,7 +27,7 @@ AppAsset::register($this);
     </head>
     <body>
     <?php $this->beginBody() ?>
-    <div style="width: 100%;height: 100px; background-color:#2b669a; margin-bottom: 20px;" ></div>
+    <div style="width: 100%;height: 100px;margin-bottom: 20px; background-color:salmon;"></div>
     <div class="container-fluid">
         <div class="grid">
             <div class="row">
@@ -51,15 +45,14 @@ AppAsset::register($this);
 
 
                 <div id="pjax-container" class="col-md-6">
-                    <?= $content ?>
+                    <?= $content?>
                 </div>
 
             </div>
         </div>
     </div>
-
+    <? $this->registerJsFile('@web/js/ajaxRender.js',['depends' => 'app\assets\BowerAsset'],'mAjaxRender');?>
     <?php $this->endBody() ?>
     </body>
     </html>
 <?php $this->endPage() ?>
-<? $this->registerJsFile('@web/js/ajaxRender.js',['depends' => 'app\assets\BowerAsset'],'mAjaxRender');?>
